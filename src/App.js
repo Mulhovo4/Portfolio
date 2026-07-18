@@ -1,436 +1,362 @@
 import React, { useState } from 'react';
-import { Menu, X, Github, Linkedin, Mail, ExternalLink, MapPin, Phone, Award, Briefcase, GraduationCap, Code } from 'lucide-react';
-import opticaLogin from './images/Cleyton.jpeg';
+import {
+  Award,
+  BriefcaseBusiness,
+  ChevronRight,
+  Code2,
+  Download,
+  Github,
+  GraduationCap,
+  Languages,
+  Linkedin,
+  Mail,
+  MapPin,
+  Menu,
+  Phone,
+  ShieldCheck,
+  Sparkles,
+  X,
+} from 'lucide-react';
+import './App.css';
+import profileImage from './images/Cleyton.jpeg';
+import opticaLogin from './images/optica/login.png';
+import opticaConsultation from './images/optica/consultation.png';
+import apmMain from './images/apm/main.jpeg';
+import apmUsers from './images/apm/users.jpeg';
 
-export default function Portfolio() {
+const contacts = {
+  email: 'cleyton.mulhovo@gmail.com',
+  phone: '+258 843 861 102',
+  altPhone: '+258 833 629 476',
+  location: 'Maputo, Moçambique',
+  github: 'https://github.com/Mulhovo4',
+  linkedin: 'https://www.linkedin.com/in/cleyton-mulhovo-4a4b75303/',
+  cv: '/Cleyton_Mulhovo_CV.pdf',
+};
+
+const highlights = [
+  { value: '4+', label: 'projetos digitais entregues' },
+  { value: '<1 min', label: 'geração de relatórios antes manual' },
+  { value: '4', label: 'escritórios ligados por VPN' },
+  { value: '2025', label: 'licenciatura em Engenharia Informática' },
+];
+
+const experience = [
+  {
+    role: 'Digital Learning Intern',
+    company: 'UNICEF Moçambique',
+    period: 'Dez 2025 - Mai 2026',
+    location: 'Maputo',
+    summary:
+      'Desenvolvimento de aplicações web interativas para a plataforma Maza e UNICEF Learning Passport, integração de APIs, testes funcionais e apoio num pipeline de vídeos educativos com Inteligência Artificial.',
+    focus: ['HTML5', 'CSS3', 'JavaScript', 'APIs', 'QA', 'IA'],
+  },
+  {
+    role: 'Software Engineer / Network Administrator',
+    company: 'Profissionais da Óptica',
+    period: 'Abr 2025 - Nov 2025',
+    location: 'Maputo',
+    summary:
+      'Conceção de um sistema completo de gestão clínica, APIs RESTful com autenticação JWT, deployment com Docker em Linux Ubuntu e ligações VPN entre Maputo, Inhambane, Tete e Nampula.',
+    focus: ['React', 'Node.js', 'Docker', 'Linux', 'JWT', 'VPN'],
+  },
+  {
+    role: 'Software Developer - Estagiário',
+    company: 'Vulcan Moçambique',
+    period: 'Set 2024 - Abr 2025',
+    location: 'Tete',
+    summary:
+      'Contribuição no projeto Application Portfolio Management, com desenvolvimento back-end, auditorias de código e colaboração com Git/GitHub em ambiente de equipa.',
+    focus: ['Back-end', 'Git/GitHub', 'Code Review', 'APM'],
+  },
+];
+
+const projects = [
+  {
+    title: 'Sistema de Gestão Clínica de Optometria',
+    company: 'Profissionais da Óptica',
+    year: '2025',
+    image: opticaLogin,
+    secondaryImage: opticaConsultation,
+    description:
+      'Plataforma para consultas, vendas, relatórios e painel de controlo. Automatizou relatórios de vendas que antes levavam cerca de um dia para menos de um minuto.',
+    tags: ['React', 'Node.js', 'MySQL', 'Docker', 'Linux', 'VPN'],
+  },
+  {
+    title: 'Application Portfolio Management',
+    company: 'Vulcan Moçambique',
+    year: '2024 - 2025',
+    image: apmMain,
+    secondaryImage: apmUsers,
+    description:
+      'Solução para governação e ciclo de vida de aplicações, com funcionalidades back-end, gestão de utilizadores e participação em auditorias de código.',
+    tags: ['React', 'Node.js', 'MySQL', 'Git', 'DevOps'],
+  },
+  {
+    title: 'Aplicações Educativas Interativas',
+    company: 'UNICEF Moçambique',
+    year: '2025 - 2026',
+    image: profileImage,
+    description:
+      'Recursos web interativos com animações, síntese de voz, consumo de APIs e testes de qualidade para experiências digitais de aprendizagem.',
+    tags: ['JavaScript', 'HTML5', 'CSS3', 'APIs', 'QA', 'IA'],
+  },
+  {
+    title: 'Canais Digitais e Integração USSD',
+    company: 'Projetos técnicos',
+    year: '2026',
+    image: opticaConsultation,
+    description:
+      'Conhecimento prático com tecnologia USSD, comandos AT, gestão de SMS e integração via Web Serial API para comunicação com modem WWAN.',
+    tags: ['USSD', 'Web Serial API', 'Comandos AT', 'SMS', 'REST'],
+  },
+];
+
+const skillGroups = [
+  {
+    title: 'Front-end',
+    icon: Code2,
+    items: ['React', 'JavaScript ES6', 'HTML5', 'CSS3', 'Interfaces interativas', 'Animações'],
+  },
+  {
+    title: 'Back-end e APIs',
+    icon: BriefcaseBusiness,
+    items: ['Node.js', 'Python 3', 'RESTful APIs', 'HTTP/HTTPS', 'JWT', 'OAuth2'],
+  },
+  {
+    title: 'Dados e BI',
+    icon: Sparkles,
+    items: ['MySQL', 'PostgreSQL', 'SQL Server', 'MongoDB', 'Firebase', 'Power BI'],
+  },
+  {
+    title: 'DevOps e Qualidade',
+    icon: ShieldCheck,
+    items: ['Docker', 'Linux Ubuntu', 'Git/GitHub', 'CI/CD básico', 'SQA', 'Testes funcionais'],
+  },
+];
+
+const certifications = [
+  'Cybersecurity Essentials - Cisco Networking Academy',
+  'Introduction to Data Science - Cisco Networking Academy',
+  'Introduction to React - MetaBrains/Udemy',
+  'Generative AI for Web Developers: AI-Powered Pair Programming - LinkedIn Learning',
+  'Project Management Foundations - LinkedIn Learning/NASBA/PMI',
+  'Project Management Foundations: Risk - LinkedIn Learning/NASBA/PMI',
+  'Strategic Communication for Leaders - LinkedIn Learning/PMI',
+];
+
+function App() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => setIsOpen(!isOpen);
-
-  const projects = [
-    {
-      id: 1,
-      title: 'Sistema de Gestão Clínica de Optometria',
-      company: 'Profissionais da Óptica',
-      description: 'Sistema completo para gestão de consultas, vendas e relatórios. Automatização de relatórios de vendas reduzindo o tempo de elaboração de cerca de um dia para menos de um minuto. Implementação de pipeline Docker e configuração VPN ligando 4 escritórios.',
-      tags: ['React', 'Node.js', 'Docker', 'MySQL', 'VPN'],
-      year: '2025'
-    },
-    {
-      id: 2,
-      title: 'Interface Web de Monitorização GSM',
-      company: 'Command Line',
-      description: 'Interface web para monitorização que organiza e visualiza dados transmitidos por módulos GSM. Proposta de arquitecturas escaláveis e seguras para melhorar a comunicação e eficiência na gestão de dados.',
-      tags: ['React', 'Express.js', 'GSM', 'Real-time'],
-      year: '2025'
-    },
-    {
-      id: 3,
-      title: 'Sistema APM (Application Portfolio Management)',
-      company: 'Vulcan Moçambique',
-      description: 'Contribuição para o projecto de Gestão do Portfólio de Aplicações implementado pela Vulcan para optimizar a governação e o ciclo de vida das aplicações. Desenvolvimento de funcionalidades backend e participação em auditorias de código.',
-      tags: ['React', 'Node.js', 'MySQL', 'DevOps'],
-      year: '2024-2025'
-    },
-    {
-      id: 4,
-      title: 'Wellness Check System',
-      company: 'MPDC / P&O Maritime',
-      description: 'Sistema para monitorização da saúde dos colaboradores e bem-estar no local de trabalho. Foco na usabilidade, desempenho e processamento seguro de dados em conformidade com normas de privacidade.',
-      tags: ['React', 'Node.js', 'MongoDB', 'Privacy'],
-      year: '2025'
-    }
-  ];
-
-  const skills = [
-    {
-      category: 'Frontend',
-      items: ['React', 'JavaScript (ES6)', 'HTML5', 'CSS3', 'Responsive Design', 'Bootstrap', 'Tailwind CSS']
-    },
-    {
-      category: 'Backend',
-      items: ['Node.js', 'Express', 'MongoDB', 'MySQL', 'SQL Server']
-    },
-    {
-      category: 'DevOps & Tools',
-      items: ['Docker', 'Git/GitHub', 'Linux Ubuntu', 'VPN Config', 'Railway', 'Vercel']
-    }
-  ];
-
-  const certifications = [
-    'Fundamentos de Cibersegurança - Cisco',
-    'Introdução à Ciência de Dados - Cisco',
-    'Introdução ao React - MetaBrains/Udemy',
-    'Controlo de Versões com Git e GitHub - DIO',
-    'Ciclo de Vida do Processo de Ciência de Dados - DIO'
-  ];
+  const closeMenu = () => setIsOpen(false);
 
   return (
-    <div style={{ backgroundColor: '#0f172a', color: '#e2e8f0', minHeight: '100vh' }}>
-      {/* Navigation */}
-      <nav style={{
-        backgroundColor: '#1e293b',
-        padding: '16px 0',
-        position: 'sticky',
-        top: 0,
-        zIndex: 1000,
-        borderBottom: '1px solid #334155'
-      }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#06b6d4', fontFamily: 'monospace' }}>
-            {'<CM />'}
-          </div>
-          <button
-            onClick={toggle}
-            style={{
-              display: 'none',
-              background: 'none',
-              border: 'none',
-              color: '#06b6d4',
-              cursor: 'pointer'
-            }}
-            className="mobile-menu-btn"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-          <div style={{ display: 'flex', gap: '24px' }} className="nav-links">
-            <a href="#home" style={{ color: '#e2e8f0', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#06b6d4'} onMouseLeave={(e) => e.target.style.color = '#e2e8f0'}>Home</a>
-            <a href="#projects" style={{ color: '#e2e8f0', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#06b6d4'} onMouseLeave={(e) => e.target.style.color = '#e2e8f0'}>Projetos</a>
-            <a href="#skills" style={{ color: '#e2e8f0', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#06b6d4'} onMouseLeave={(e) => e.target.style.color = '#e2e8f0'}>Skills</a>
-            <a href="#contact" style={{ color: '#e2e8f0', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#06b6d4'} onMouseLeave={(e) => e.target.style.color = '#e2e8f0'}>Contato</a>
-          </div>
-        </div>
-      </nav>
+    <div className="portfolio-shell">
+      <header className="site-header">
+        <a className="brand-mark" href="#home" onClick={closeMenu} aria-label="Cleyton Mulhovo">
+          <span>CM</span>
+        </a>
 
-      {/* Hero Section */}
-      <section id="home" style={{ padding: '80px 24px', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px', alignItems: 'center' }}>
-            <div>
-              <h1 style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '20px', color: '#06b6d4', lineHeight: '1.2' }}>
-                Cleyton Edmilson Inguane Mulhovo
-              </h1>
-              <h2 style={{ fontSize: '1.5rem', color: '#94a3b8', marginBottom: '20px' }}>
-                Engenheiro Informático
-              </h2>
-              <p style={{ fontSize: '1.1rem', lineHeight: '1.6', marginBottom: '30px', color: '#cbd5e1' }}>
-                Especialista em desenvolvimento de software, administração de redes e transformação digital. Experiência em aplicações web escaláveis, ambientes Docker e infraestruturas Linux.
-              </p>
-              <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94a3b8' }}>
-                  <MapPin size={18} />
-                  Maputo, Moçambique
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#94a3b8' }}>
-                  <Phone size={18} />
-                  +258 843 861 102
-                </div>
-              </div>
-              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                <a href="mailto:cleyton.mulhovo@gmail.com" style={{
-                  backgroundColor: '#06b6d4',
-                  color: '#0f172a',
-                  padding: '12px 24px',
-                  borderRadius: '6px',
-                  textDecoration: 'none',
-                  fontWeight: '500',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  transition: 'transform 0.2s'
-                }} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>
-                  <Mail size={18} />
-                  Contacto
-                </a>
-                <a href="#projects" style={{
-                  border: '1px solid #06b6d4',
-                  color: '#06b6d4',
-                  padding: '12px 24px',
-                  borderRadius: '6px',
-                  textDecoration: 'none',
-                  fontWeight: '500',
-                  transition: 'all 0.2s'
-                }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#06b6d4'; e.currentTarget.style.color = '#0f172a'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#06b6d4'; }}>
-                  Ver Projectos
-                </a>
-              </div>
+        <button
+          className="menu-toggle"
+          type="button"
+          onClick={() => setIsOpen((current) => !current)}
+          aria-label="Abrir menu"
+          aria-expanded={isOpen}
+        >
+          {isOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+
+        <nav className={`nav-links ${isOpen ? 'is-open' : ''}`} aria-label="Navegação principal">
+          <a href="#projects" onClick={closeMenu}>Projetos</a>
+          <a href="#experience" onClick={closeMenu}>Experiência</a>
+          <a href="#skills" onClick={closeMenu}>Competências</a>
+          <a href="#contact" onClick={closeMenu}>Contacto</a>
+        </nav>
+      </header>
+
+      <main>
+        <section className="hero-section" id="home">
+          <div className="hero-copy">
+            <p className="eyebrow">Desenvolvedor Full Stack - Engenharia Informática</p>
+            <h1>Cleyton Edmilson Inguane Mulhovo</h1>
+            <p className="hero-text">
+              Engenheiro Informático focado em desenvolvimento Full Stack, APIs RESTful,
+              qualidade de software, automação de processos e infraestruturas Linux com Docker.
+            </p>
+
+            <div className="contact-strip" aria-label="Dados de contacto">
+              <span><MapPin size={18} />{contacts.location}</span>
+              <span><Phone size={18} />{contacts.phone} / {contacts.altPhone}</span>
             </div>
-            <div
-              style={{
-                width: '100%',
-                height: '400px',
-                backgroundColor: '#334155',
-                borderRadius: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '2px solid #06b6d4'
-              }}
-            >
-              <img
-                src={opticaLogin}
-                alt="Tela de login - Sistema de Gestão Clínica de Optometria"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover', // ✅ preenche o espaço sem distorcer
-                  borderRadius: '10px'
-                }}
-              />
+
+            <div className="hero-actions">
+              <a className="primary-action" href={`mailto:${contacts.email}`}>
+                <Mail size={18} />
+                Contactar
+              </a>
+              <a className="secondary-action" href={contacts.cv} download>
+                <Download size={18} />
+                Baixar CV
+              </a>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Projects Section */}
-      <section id="projects" style={{ padding: '80px 24px' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '50px', textAlign: 'center', color: '#06b6d4' }}>
-            Projetos Realizados
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
+          <div className="hero-portrait" aria-label="Fotografia de Cleyton Mulhovo">
+            <img src={profileImage} alt="Cleyton Mulhovo" />
+            <div className="availability-note">
+              <span>Aberto a oportunidades em software, QA e operações digitais</span>
+            </div>
+          </div>
+        </section>
+
+        <section className="metrics-band" aria-label="Destaques profissionais">
+          {highlights.map((item) => (
+            <div className="metric-item" key={item.label}>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </section>
+
+        <section className="section-block" id="projects">
+          <div className="section-heading">
+            <p className="eyebrow">Portfólio aplicado</p>
+            <h2>Projetos com impacto operacional</h2>
+          </div>
+
+          <div className="project-grid">
             {projects.map((project) => (
-              <div key={project.id} style={{
-                backgroundColor: '#1e293b',
-                border: '1px solid #334155',
-                borderRadius: '12px',
-                padding: '24px',
-                transition: 'transform 0.2s, border-color 0.2s'
-              }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = '#06b6d4'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.borderColor = '#334155'; }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '12px' }}>
-                  <h3 style={{ color: '#06b6d4', fontSize: '1.25rem', fontWeight: '600' }}>{project.title}</h3>
-                  <span style={{ color: '#94a3b8', fontSize: '0.875rem' }}>{project.year}</span>
+              <article className="project-card" key={project.title}>
+                <div className="project-media">
+                  <img src={project.image} alt={`${project.title} - ${project.company}`} />
+                  {project.secondaryImage && (
+                    <img className="project-media-inset" src={project.secondaryImage} alt="" aria-hidden="true" />
+                  )}
                 </div>
-                <p style={{ color: '#94a3b8', fontSize: '0.875rem', marginBottom: '12px', fontStyle: 'italic' }}>
-                  {project.company}
-                </p>
-                <p style={{ color: '#cbd5e1', marginBottom: '16px', lineHeight: '1.6' }}>{project.description}</p>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                  {project.tags.map((tag, idx) => (
-                    <span key={idx} style={{
-                      backgroundColor: '#334155',
-                      color: '#06b6d4',
-                      padding: '4px 12px',
-                      borderRadius: '4px',
-                      fontSize: '0.875rem'
-                    }}>
-                      {tag}
-                    </span>
-                  ))}
+                <div className="project-content">
+                  <div className="project-meta">
+                    <span>{project.company}</span>
+                    <span>{project.year}</span>
+                  </div>
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  <div className="tag-list">
+                    {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                  </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Skills Section */}
-      <section id="skills" style={{ padding: '80px 24px', backgroundColor: '#1e293b' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '50px', textAlign: 'center', color: '#06b6d4' }}>
-            Competências Técnicas
-          </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px', marginBottom: '40px' }}>
-            {skills.map((skillGroup, idx) => (
-              <div key={idx} style={{
-                backgroundColor: '#0f172a',
-                border: '1px solid #334155',
-                borderRadius: '12px',
-                padding: '24px'
-              }}>
-                <h3 style={{ color: '#06b6d4', marginBottom: '16px', fontSize: '1.25rem' }}>{skillGroup.category}</h3>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                  {skillGroup.items.map((skill, i) => (
-                    <span key={i} style={{
-                      backgroundColor: '#334155',
-                      color: '#e2e8f0',
-                      padding: '6px 12px',
-                      borderRadius: '4px',
-                      fontSize: '0.875rem'
-                    }}>
-                      {skill}
-                    </span>
-                  ))}
+        <section className="section-block experience-section" id="experience">
+          <div className="section-heading">
+            <p className="eyebrow">Trajetória</p>
+            <h2>Experiência profissional</h2>
+          </div>
+
+          <div className="timeline">
+            {experience.map((item) => (
+              <article className="timeline-item" key={`${item.company}-${item.period}`}>
+                <div className="timeline-marker" />
+                <div className="timeline-content">
+                  <div className="timeline-topline">
+                    <span>{item.period}</span>
+                    <span>{item.location}</span>
+                  </div>
+                  <h3>{item.role}</h3>
+                  <p className="company-name">{item.company}</p>
+                  <p>{item.summary}</p>
+                  <div className="tag-list compact">
+                    {item.focus.map((tag) => <span key={tag}>{tag}</span>)}
+                  </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
+        </section>
 
-          <div style={{
-            backgroundColor: '#0f172a',
-            border: '1px solid #334155',
-            borderRadius: '12px',
-            padding: '24px'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-              <Award size={24} color="#06b6d4" />
-              <h3 style={{ color: '#06b6d4', fontSize: '1.25rem' }}>Certificações</h3>
-            </div>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              {certifications.map((cert, idx) => (
-                <li key={idx} style={{
-                  color: '#cbd5e1',
-                  padding: '8px 0',
-                  borderBottom: idx < certifications.length - 1 ? '1px solid #334155' : 'none'
-                }}>
-                  {cert}
-                </li>
-              ))}
-            </ul>
+        <section className="section-block" id="skills">
+          <div className="section-heading">
+            <p className="eyebrow">Stack técnico</p>
+            <h2>Competências organizadas para entrega</h2>
           </div>
-        </div>
-      </section>
 
-      {/* Education & Experience */}
-      <section style={{ padding: '80px 24px' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '40px' }}>
+          <div className="skills-grid">
+            {skillGroups.map(({ title, icon: Icon, items }) => (
+              <article className="skill-card" key={title}>
+                <div className="skill-title">
+                  <Icon size={22} />
+                  <h3>{title}</h3>
+                </div>
+                <div className="tag-list">
+                  {items.map((item) => <span key={item}>{item}</span>)}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="credentials-band">
+          <div className="education-panel">
+            <GraduationCap size={28} />
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-                <GraduationCap size={32} color="#06b6d4" />
-                <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#06b6d4' }}>Formação</h2>
-              </div>
-              <div style={{
-                backgroundColor: '#1e293b',
-                border: '1px solid #334155',
-                borderRadius: '12px',
-                padding: '24px'
-              }}>
-                <h3 style={{ color: '#06b6d4', marginBottom: '8px' }}>Licenciatura em Engenharia Informática</h3>
-                <p style={{ color: '#94a3b8', marginBottom: '8px' }}>Instituto Superior Politécnico de Tete (ISPT)</p>
-                <p style={{ color: '#cbd5e1' }}>Fev 2021 – Jul 2025</p>
-              </div>
+              <p className="eyebrow">Formação</p>
+              <h2>Licenciatura em Engenharia Informática</h2>
+              <p>Instituto Superior Politécnico de Tete (ISPT) - Fev 2021 a Jul 2025</p>
             </div>
+          </div>
 
+          <div className="certification-panel">
+            <Award size={28} />
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-                <Briefcase size={32} color="#06b6d4" />
-                <h2 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#06b6d4' }}>Experiência</h2>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div style={{
-                  backgroundColor: '#1e293b',
-                  border: '1px solid #334155',
-                  borderRadius: '12px',
-                  padding: '20px'
-                }}>
-                  <h4 style={{ color: '#06b6d4', marginBottom: '4px' }}>Profissionais da Óptica</h4>
-                  <p style={{ color: '#94a3b8', fontSize: '0.875rem' }}>Engenheiro de Software / Admin de Rede • Abr 2025 – Presente</p>
-                </div>
-                <div style={{
-                  backgroundColor: '#1e293b',
-                  border: '1px solid #334155',
-                  borderRadius: '12px',
-                  padding: '20px'
-                }}>
-                  <h4 style={{ color: '#06b6d4', marginBottom: '4px' }}>Command Line</h4>
-                  <p style={{ color: '#94a3b8', fontSize: '0.875rem' }}>Analista de Telecomunicações • Mai 2025 – Presente</p>
-                </div>
-                <div style={{
-                  backgroundColor: '#1e293b',
-                  border: '1px solid #334155',
-                  borderRadius: '12px',
-                  padding: '20px'
-                }}>
-                  <h4 style={{ color: '#06b6d4', marginBottom: '4px' }}>Vulcan</h4>
-                  <p style={{ color: '#94a3b8', fontSize: '0.875rem' }}>Desenvolvedor de Software (Estagiário) • Set 2024 – Abr 2025</p>
-                </div>
-              </div>
+              <p className="eyebrow">Certificações</p>
+              <ul>
+                {certifications.map((cert) => (
+                  <li key={cert}>
+                    <ChevronRight size={16} />
+                    {cert}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Contact Section */}
-      <section id="contact" style={{ padding: '80px 24px', backgroundColor: '#1e293b' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '24px', color: '#06b6d4' }}>
-            Entre em contacto
-          </h2>
-          <p style={{ fontSize: '1.1rem', marginBottom: '40px', color: '#cbd5e1' }}>
-            Estou sempre aberto a novas oportunidades e projetos desafiadores. Vamos conversar!
-          </p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '24px', flexWrap: 'wrap' }}>
-            <a href="mailto:cleyton.mulhovo@gmail.com" style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              color: '#06b6d4',
-              textDecoration: 'none',
-              fontSize: '1.1rem',
-              padding: '12px 24px',
-              border: '1px solid #06b6d4',
-              borderRadius: '6px',
-              transition: 'all 0.2s'
-            }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#06b6d4'; e.currentTarget.style.color = '#0f172a'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#06b6d4'; }}>
-              <Mail size={20} />
-              Email
-            </a>
-            <a href="https://github.com/Mulhovo4" target="_blank" rel="noopener noreferrer" style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              color: '#06b6d4',
-              textDecoration: 'none',
-              fontSize: '1.1rem',
-              padding: '12px 24px',
-              border: '1px solid #06b6d4',
-              borderRadius: '6px',
-              transition: 'all 0.2s'
-            }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#06b6d4'; e.currentTarget.style.color = '#0f172a'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#06b6d4'; }}>
-              <Github size={20} />
-              GitHub
-            </a>
-            <a href="https://www.linkedin.com/in/cleyton-mulhovo-4a4b75303/" target="_blank" rel="noopener noreferrer" style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              color: '#06b6d4',
-              textDecoration: 'none',
-              fontSize: '1.1rem',
-              padding: '12px 24px',
-              border: '1px solid #06b6d4',
-              borderRadius: '6px',
-              transition: 'all 0.2s'
-            }} onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#06b6d4'; e.currentTarget.style.color = '#0f172a'; }} onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = '#06b6d4'; }}>
-              <Linkedin size={20} />
-              LinkedIn
-            </a>
+          <div className="language-panel">
+            <Languages size={28} />
+            <div>
+              <p className="eyebrow">Idiomas</p>
+              <p>Português nativo/fluente. Inglês fluente - nível 4 pelo Instituto de Línguas de Moçambique.</p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
-      <footer style={{
-        backgroundColor: '#0f172a',
-        padding: '30px 24px',
-        textAlign: 'center',
-        color: '#94a3b8',
-        borderTop: '1px solid #334155'
-      }}>
-        <p style={{ margin: 0 }}>
-          © {new Date().getFullYear()} Cleyton Mulhovo. Desenvolvido com React.
-        </p>
+        <section className="contact-section" id="contact">
+          <div>
+            <p className="eyebrow">Contacto</p>
+            <h2>Vamos construir algo útil, estável e bem cuidado.</h2>
+            <p>
+              Disponível para oportunidades em desenvolvimento de software, QA,
+              automação, aplicações digitais e operações técnicas.
+            </p>
+          </div>
+
+          <div className="contact-actions">
+            <a href={`mailto:${contacts.email}`}><Mail size={18} />{contacts.email}</a>
+            <a href={`tel:${contacts.phone.replace(/\s/g, '')}`}><Phone size={18} />{contacts.phone}</a>
+            <a href={contacts.github} target="_blank" rel="noreferrer"><Github size={18} />GitHub</a>
+            <a href={contacts.linkedin} target="_blank" rel="noreferrer"><Linkedin size={18} />LinkedIn</a>
+          </div>
+        </section>
+      </main>
+
+      <footer className="site-footer">
+        <span>© {new Date().getFullYear()} Cleyton Mulhovo</span>
+        <span>Desenvolvido com React</span>
       </footer>
-
-      <style>{`
-        @media (max-width: 768px) {
-          .mobile-menu-btn {
-            display: block !important;
-          }
-          .nav-links {
-            display: ${isOpen ? 'flex' : 'none'} !important;
-            flex-direction: column;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background-color: #1e293b;
-            padding: 20px;
-            border-top: 1px solid #334155;
-          }
-        }
-      `}</style>
     </div>
   );
 }
+
+export default App;
