@@ -138,7 +138,7 @@ const projects = [
     title: 'Aplicações Educativas Interativas',
     company: 'UNICEF Moçambique',
     year: '2025 - 2026',
-    image: null,
+    image: '/assets/Games generator.png',
     description:
       'Recursos web interativos com animações, síntese de voz, consumo de APIs e testes de qualidade para a plataforma Maza e Learning Passport.',
     tags: ['JavaScript', 'HTML5', 'CSS3', 'E-learning', 'QA'],
@@ -351,15 +351,6 @@ function App() {
               <div className="availability-note">
                 <span>Aberto a oportunidades em software, QA e operações digitais</span>
               </div>
-            </div>
-            <div className="floating-console" aria-hidden="true">
-              <span className="console-dot" />
-              <span>pipeline: stable</span>
-              <strong>Docker + Linux</strong>
-            </div>
-            <div className="floating-score" aria-hidden="true">
-              <span>REST APIs</span>
-              <strong>JWT/OAuth</strong>
             </div>
           </div>
         </section>
